@@ -28,6 +28,9 @@ class Api::ProductController < ApplicationController
 	    if params[:pictures].present?
 	    	ProductPicture.check_and_create(@product,params[:pictures])
     	end
+    	if params[:vars].present?
+    		Var.check_and_create(@product,params[:vars])
+    	end
 		else
 			return render json: { message: @product.errors }, status: 400
 		end
