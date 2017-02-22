@@ -7,4 +7,12 @@ class Product < ActiveRecord::Base
 	accepts_nested_attributes_for :product_categories, :allow_destroy => true
 
 	validates_presence_of :name, :SKU_ID
+
+  acts_as_taggable_on :tags
+
+  before_save :change_price
+
+  def change_price
+    self.price = sel.price * 100
+  end
 end

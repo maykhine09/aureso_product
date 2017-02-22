@@ -5,7 +5,8 @@ ActiveAdmin.register Product do
 #
 permit_params :name, :SKU_ID, :price, :description, :expire_date,
 :product_pictures_attributes => [:id, :product_id, :url,:_create,:_update,:_destroy],
-:product_categories_attributes => [:id, :product_id, :category_id,:_create,:_update,:_destroy]
+:product_categories_attributes => [:id, :product_id, :category_id,:_create,:_update,:_destroy],
+:tag_ids => []
 
 filter :name
 filter :SKU_ID
@@ -18,7 +19,7 @@ index do
     column :name
     column :SKU_ID
     column :price
-    column 'Picuture' do |product| 
+    column 'Picuture' do |product|
         image_tag(product.product_pictures.first.url.url, :size => '50x50') unless product.product_pictures.first.nil?
       end
     actions
@@ -33,6 +34,11 @@ index do
       row :categories do
         if i.categories.present?
           i.categories.map { |c| c.name }.join(", ")
+        end
+      end
+      row :tags do
+        if i.tags.present?
+          i.tags.map { |t| t.name }.join(", ")
         end
       end
     end
