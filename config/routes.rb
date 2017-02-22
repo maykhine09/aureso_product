@@ -4,4 +4,7 @@ Rails.application.routes.draw do
 
   root 'admin/dashboard#index'
 
+  namespace :api do
+    resources :product, :only => [:create]
+  end
 end

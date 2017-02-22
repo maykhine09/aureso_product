@@ -4,7 +4,8 @@ ActiveAdmin.register Product do
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 permit_params :name, :SKU_ID, :price, :description, :expire_date,
-:product_picutures_attributes => [:id,:url,:_create,:_update,:_destroy]
+:product_pictures_attributes => [:id, :product_id, :url,:_create,:_update,:_destroy],
+:product_categories_attributes => [:id, :product_id, :category_id,:_create,:_update,:_destroy]
 
 filter :name
 filter :SKU_ID
@@ -17,6 +18,9 @@ index do
     column :name
     column :SKU_ID
     column :price
+    column 'Picuture' do |product| 
+        image_tag(product.product_pictures.first.url.url, :size => '50x50') unless product.product_pictures.first.nil?
+      end
     actions
   end
 
@@ -26,11 +30,18 @@ index do
       row :name
       row :SKU_ID
       row :price
+      row :categories do
+        if i.categories.present?
+          i.categories.map { |c| c.name }.join(", ")
+        end
+      end
     end
     panel "Product Pictures" do
-      table_for a.product_pictures do
-        column :url do |i|
-          i.url.present? ? image_tag(i.url.url,:size => '200x200') : ''
+      table_for i.product_pictures do
+        column :url do |a|
+          if a.url.present?
+            image_tag a.url.url,:size => '200x200'
+          end
         end
       end
     end
@@ -43,6 +54,7 @@ index do
       f.input :price
       f.input :description
       f.input :expire_date, as: :date_picker
+      f.input :categories, collection: Category.order("name ASC")
     end
     f.inputs "Add Product Pictures" do
       f.has_many :product_pictures, :allow_destroy => true do |p|
