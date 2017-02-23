@@ -4,7 +4,6 @@ ActiveAdmin.register Product do
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
 permit_params :name, :SKU_ID, :price, :description, :expire_date,
-:product_pictures_attributes => [:id, :product_id, :url,:_create,:_update,:_destroy],
 :product_categories_attributes => [:id, :product_id, :category_id,:_create,:_update,:_destroy],
 :tag_ids => []
 
@@ -62,9 +61,13 @@ index do
       f.input :expire_date, as: :date_picker
       f.input :categories, collection: Category.order("name ASC")
     end
-    f.inputs "Add Product Pictures" do
-      f.has_many :product_pictures, :allow_destroy => true do |p|
-        p.input :url, :as => :file, :label => "Image",:hint => image_tag(p.object.url.url, size: "100x100")
+    panel "Product Pictures" do
+      table_for f.object.product_pictures do
+        column :url do |a|
+          if a.url.present?
+            image_tag a.url.url,:size => '200x200'
+          end
+        end
       end
     end
     f.actions
