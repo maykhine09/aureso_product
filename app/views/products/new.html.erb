@@ -1,0 +1,69 @@
+<div>
+	<%= form_for @product, html: {class:"form-horizontal form-bordered"} do |f| %>
+
+		<div class="form-body">
+	    <div class="form-group">
+	      <%= f.label :expire_date, :class=>'control-label col-md-2' %>
+	      <div class="col-md-10">
+	        <%= f.date_field :expire_date, :class=>"form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="form-body">
+	    <div class="form-group">
+	      <%= f.label :name, :class=>'control-label col-md-2' %>
+	      <div class="col-md-10">
+	        <%= f.text_field :name, :class=>"form-control" %>
+	      </div>
+	    </div>
+	  </div> 
+
+	  <div class="form-body">
+	    <div class="form-group">
+	      <%= f.label :SKU_ID, :class=>'control-label col-md-2' %>
+	      <div class="col-md-10">
+	        <%= f.text_field :SKU_ID, :class=>"form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="form-body">
+	    <div class="form-group">
+	      <%= f.label :price, :class=>'control-label col-md-2' %>
+	      <div class="col-md-10">
+	        <%= f.text_field :price, :class=>"form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="form-body">
+	    <div class="form-group">
+	      <%= f.label :description, :class=>'control-label col-md-2' %>
+	      <div class="col-md-10">
+	        <%= f.text_area :description, :class=>"form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="form-body">
+	    <div class="form-group">
+			  <%= f.fields_for :product_pictures do |p| %>
+		     <div class="field">
+		       <%= p.label :image %><br>
+		       <%= p.file_field :url, :multiple => true, name: "product_pictures[url][]" %>
+		     </div>
+		     <% end %>
+		   </div>
+		</div>
+
+	  <div class="form-actions">
+	    <div class="row">
+	      <div class="col-md-offset-2 col-md-10">
+	        <%= f.submit :class=>'btn green' %>
+	      </div>
+	    </div>
+	  </div>
+
+	<% end %>
+</div>

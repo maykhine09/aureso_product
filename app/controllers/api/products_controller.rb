@@ -1,5 +1,10 @@
-class Api::ProductController < ApplicationController
+class Api::ProductsController < ApplicationController
 	skip_before_filter :verify_authenticity_token
+
+	def new
+		@product = Produt.new(product_params)
+		
+	end
 
 	def create
 		@product = Product.where(:name => params[:name]).first

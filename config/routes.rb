@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  root 'admin/dashboard#index'
+  resources :products, :only => [:create]
+  get '/products/new', to: 'products#new'
 
   namespace :api do
-    resources :product, :only => [:create]
+    resources :products, :only => [:create]
   end
 end
