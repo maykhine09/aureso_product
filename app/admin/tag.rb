@@ -1,8 +1,5 @@
-ActiveAdmin.register Category do
+ActiveAdmin.register Tag do
 
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
 permit_params :name
 filter :name
 
@@ -15,7 +12,6 @@ filter :name
 
   show do |i|
     attributes_table do
-      row :id
       row :name
     end
   end
@@ -26,5 +22,4 @@ filter :name
     end
     f.actions
   end
-
 end

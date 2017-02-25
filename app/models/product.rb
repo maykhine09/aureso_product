@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
 
   accepts_nested_attributes_for :product_pictures, :allow_destroy => true
 	accepts_nested_attributes_for :product_categories, :allow_destroy => true
+  accepts_nested_attributes_for :vars, :allow_destroy => true
 
 	validates_presence_of :name, :SKU_ID
 

@@ -5,6 +5,7 @@ ActiveAdmin.register Product do
 #
 permit_params :name, :SKU_ID, :price, :description, :expire_date,
 :product_categories_attributes => [:id, :product_id, :category_id,:_create,:_update,:_destroy],
+:vars_attributes => [:color, :models_attribute => [:name]],
 :tag_ids => []
 
 filter :name
@@ -40,6 +41,16 @@ index do
           i.tags.map { |t| t.name }.join(", ")
         end
       end
+      row :vars do
+        if i.vars.present?
+          i.vars.color
+        end
+      end
+      row :models do
+        if i.models.present?
+          i.models.map { |t| t.name }.join(", ")
+        end
+      end
     end
     panel "Product Pictures" do
       table_for i.product_pictures do
@@ -59,7 +70,14 @@ index do
       f.input :price
       f.input :description
       f.input :expire_date, as: :date_picker
+      f.input :tags, collection: Tag.order("name ASC")
       f.input :categories, collection: Category.order("name ASC")
+      f.inputs "Add Vars" do
+        f.has_many :vars, :allow_destroy => true do |p|
+          p.input :color, :as => :string
+          p.input :models, collection: Model.order("name ASC")
+        end
+      end
     end
     panel "Product Pictures" do
       table_for f.object.product_pictures do

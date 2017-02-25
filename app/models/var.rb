@@ -2,15 +2,18 @@ class Var < ActiveRecord::Base
   belongs_to :product
   has_many :models, dependent: :destroy
 
-  def self.check_and_create(product,vars_params)
-    params = JSON.parse(vars_params.to_s)
+  accepts_nested_attributes_for :models, :allow_destroy => true
+
+  def self.check_and_create(product,vars_params,model_params)
+    color = ""
     if params["color"].present?
-      @vars = Var.create(:product_id => product.id, :color => params["color"])
-      if params["models"].present?
-        models = params["models"]
-        models.each do |m|
-          Model.create(:var_id => @vars.id, :name => m)
-        end
+      color = vars_params[:color]
+    end
+    @vars = Var.create(:product_id => product.id, :color => color)
+    if model_params["name"].present?
+      models = model_params["name"].split(",").map(&:strip)
+      models.each do |m|
+        Model.create(:var_id => @vars.id, :name => m)
       end
     end
   end

@@ -4,8 +4,4 @@ Rails.application.routes.draw do
 
   resources :products, :only => [:create]
   get '/products/new', to: 'products#new'
-
-  namespace :api do
-    resources :products, :only => [:create]
-  end
 end
