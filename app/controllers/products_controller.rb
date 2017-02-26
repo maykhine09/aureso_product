@@ -39,9 +39,9 @@ class ProductsController < ApplicationController
     	if params["vars"].present?
     		Var.check_and_create(@product,params[:vars],params[:models])
     	end
-      flash.now[:notice] = 'Product Created!'
-      # redirect_to "http://torcche.herokuapp.com/passwords/edit/"+ @user.reset_password_token
-      redirect_to "http://localhost:3000/products/new"
+      flash.now[:success] = 'Product Created!'
+      redirect_to "http://torcche.herokuapp.com/products/new"
+      # redirect_to "http://localhost:3000/products/new"
 		else
 			return render json: { message: @product.errors }, status: 400
 		end

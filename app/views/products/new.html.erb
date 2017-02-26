@@ -1,7 +1,8 @@
 <div>
-
+<% if flash[:success] %>
+  <p style="color: green;"><%= flash[:success] %></p>
+<% end %>
 	<%= form_for @product, html: {class:"form-horizontal form-bordered"} do |f| %>
-	<p id="notice" style="color:red;"><%= notice %></p>
 		<div class="form-body">
 	    <div class="form-group">
 	      <%= f.label :expire_date, :class=>'control-label col-md-2' %>
