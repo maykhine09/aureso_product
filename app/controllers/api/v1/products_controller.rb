@@ -40,7 +40,7 @@ class Api::V1::ProductsController < ApplicationController
         Var.check_and_create(@product,params[:vars],params[:models])
       end
       flash.now[:success] = 'Product Created!'
-      redirect_to "http://aureso-product.herokuapp.com.herokuapp.com/api/v1/products/new"
+      redirect_to "http://aureso-product.herokuapp.com/api/v1/products/new"
       # redirect_to "http://localhost:3000/products/new"
     else
       return render json: { message: @product.errors }, status: 400
