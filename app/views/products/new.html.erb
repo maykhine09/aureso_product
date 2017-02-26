@@ -1,6 +1,7 @@
 <div>
-	<%= form_for @product, html: {class:"form-horizontal form-bordered"} do |f| %>
 
+	<%= form_for @product, html: {class:"form-horizontal form-bordered"} do |f| %>
+	<p id="notice" style="color:red;"><%= notice %></p>
 		<div class="form-body">
 	    <div class="form-group">
 	      <%= f.label :expire_date, :class=>'control-label col-md-2' %>
@@ -55,7 +56,7 @@
 		    <%= f.fields_for :vars, Var.new do |var| %>
 		    	<%= f.label :var_color, :class=>'control-label col-md-2' %>
 		    	<div class="col-md-10">
-	        <%= var.text_field :color, name: "var[color]" %>
+	        <%= var.text_field :color, name: "vars[color]" %>
 	        </div>
 	       <% end %>
 		   </div>
@@ -66,7 +67,7 @@
 		    <%= f.fields_for :models, Model.new do |model| %>
 	        <%= f.label :var_models, :class=>'control-label col-md-2' %>
 		    	<div class="col-md-10">
-	        <%= model.text_field :name, name: "model[name]" %>
+	        <%= model.text_field :name, name: "models[name]" %>
 	        </div>
         <% end %>
 		   </div>

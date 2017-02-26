@@ -6,7 +6,7 @@ class Var < ActiveRecord::Base
 
   def self.check_and_create(product,vars_params,model_params)
     color = ""
-    if params["color"].present?
+    if vars_params["color"].present?
       color = vars_params[:color]
     end
     @vars = Var.create(:product_id => product.id, :color => color)

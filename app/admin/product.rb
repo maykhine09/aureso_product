@@ -42,8 +42,8 @@ index do
         end
       end
       row :vars do
-        if i.vars.present?
-          i.vars.color
+        if i.vars.first.present?
+          i.vars.first.color
         end
       end
       row :models do
